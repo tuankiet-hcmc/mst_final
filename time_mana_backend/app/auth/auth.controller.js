@@ -129,7 +129,7 @@ exports.signin = function(req, res) {
             if (!user) {
               res.json({
                 success: false,
-                message: 'email not found.'
+                message: 'Email or password invalid'
               }); // Return error
             } else {
               // Make sure the password is correct
@@ -140,7 +140,7 @@ exports.signin = function(req, res) {
                   // Password did not match
                   res.json({
                     success: false,
-                    message: 'Username or password invalid'
+                    message: 'Email or password invalid'
                   });
                 } else {
                   const token = jwt.sign(

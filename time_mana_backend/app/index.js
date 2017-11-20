@@ -8,7 +8,8 @@ var express = require('express'),
 
 var app = express();
 var router = express.Router();
-var authentication = require('./authentication/auth.router')(router);
+var auth = require('./auth/auth.router')(router);
+var events = require('./event/event.router')(router);
 /**
  * Connect DB
  */
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-
 app.use(bodyParser.json()); // parse application/json
 
 //router
-app.use('/authentication', authentication);
+app.use('/auth', auth);
+app.use('/events', events);
 
 module.exports = app;
