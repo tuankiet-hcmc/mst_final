@@ -52,7 +52,8 @@ exports.postEvent = function(req, res) {
                     location: req.body.location,
                     date: req.body.date,
                     priority: req.body.priority,
-                    createdBy: user.email // CreatedBy field
+                    createdBy: user.email,
+                    createdAt: new Date(Date.now()).toLocaleString() // CreatedBy field
                   });
                   // Save event into database
                   event.save(err => {
@@ -125,7 +126,7 @@ exports.postEvent = function(req, res) {
 };
 
 /* ==============
-     Get event
+     Get list event
   ============== */
 exports.getEvent = function(req, res) {
   User.findOne({ _id: req.decoded.userId }, (err, user) => {
@@ -155,6 +156,89 @@ exports.getEvent = function(req, res) {
           }
         }
       }).sort({ date: -1 });
+    }
+  });
+};
+/* ==============
+     Edit event
+  ============== */
+exports.editEvent = function(req, res) {
+  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    // Check if error was found
+    if (err) {
+      res.json({ success: false, message: err }); // Return error
+    } else {
+      var doc = {
+        name: req.body.name,
+        description: req.body.description,
+        date: req.body.date,
+        location: req.body.location,
+        priority: req.body.priority,
+        createdAt: new Date(Date.now()).toLocaleString()
+      };
+      Event.update(
+        { createdBy: user.email, _id: req.params.id },
+        doc,
+        (err, events) => {
+          // Check if error was found or not
+          if (err) {
+            res.json({
+              success: false,
+              message: err
+            }); // Return error message
+          } else {
+            // Check if blogs were found in database
+            if (!events) {
+              res.json({
+                success: false,
+                message: 'No events found.'
+              }); // Return error of no blogs found
+            } else {
+              res.json({
+                success: true,
+                message: 'Edit sucessfully'
+              }); // Return success and blogs array
+            }
+          }
+        }
+      )
+    }
+  });
+};
+/* ==============
+     delete event
+  ============== */
+exports.deleteEvent = function(req, res) {
+  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    // Check if error was found
+    if (err) {
+      res.json({ success: false, message: err }); // Return error
+    } else {
+      Event.remove(
+        { createdBy: user.email, _id: req.params.id },
+        (err, events) => {
+          // Check if error was found or not
+          if (err) {
+            res.json({
+              success: false,
+              message: err
+            }); // Return error message
+          } else {
+            // Check if blogs were found in database
+            if (!events) {
+              res.json({
+                success: false,
+                message: 'No events found.'
+              }); // Return error of no blogs found
+            } else {
+              res.json({
+                success: true,
+                message: 'delete sucessfully'
+              }); // Return success and blogs array
+            }
+          }
+        }
+      )
     }
   });
 };

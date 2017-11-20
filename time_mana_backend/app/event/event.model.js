@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
-
 var eventSchema = new Schema({
   name: {
     type: String,
@@ -56,7 +55,7 @@ var eventSchema = new Schema({
     ]
   },
   createdBy: { type: String, required: true },
-  createdAt: { type: Date, required: true, default: Date.now() }
+  createdAt: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Event', eventSchema);

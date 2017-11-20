@@ -8,6 +8,10 @@ module.exports = function(router) {
     .route('/')
     .post(eventController.postEvent)
     .get(eventController.getEvent);
+  router
+    .route('/:id')
+    .put(eventController.editEvent)
+    .delete(eventController.deleteEvent);
 
   return router;
 };
