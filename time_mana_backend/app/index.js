@@ -31,7 +31,18 @@ mongoose.connect(
 );
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:4200' })); // Allows cross origin in development only
+//app.use(cors({ origin: 'http://localhost:4200' })); // Allows cross origin in development only
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+  );
+  next();
+});
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 
