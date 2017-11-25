@@ -1,12 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 
-
-import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { AddComponent } from './components/event/add/add.component';
@@ -16,27 +10,22 @@ import { UnloginedComponent } from './components/navbar/unlogined/unlogined.comp
 import { LoginedComponent } from './components/navbar/logined/logined.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-
+const appRoutes: Routes = [
+  { path: '*', component: ListComponent },
+  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'adevent', component: AddComponent},
+  { path: 'listevent', component: ListComponent},
+  { path: '**', component: ListComponent },
+];
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    AddComponent,
-    EditComponent,
-    ListComponent,
-    UnloginedComponent,
-    LoginedComponent,
-    FooterComponent
-  ],
+  declarations: [],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    AppRoutingModule
+      RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [],
+  exports: [RouterModule]
 })
-export class AppModule { }
+
+export class AppRoutingModule { }
