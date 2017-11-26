@@ -9,17 +9,31 @@ import { Route } from '@angular/router/src/config';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  message = '';
+  boolerr = false;
+  boolsuc = false;
   constructor(private userService: UserService, private router : Router) {}
   public user: User = new User();
   ngOnInit() {}
   login() {
     this.userService.login(this.user).subscribe(
       res => {
-        this.userService.storeUserData(res.token, res.user.email);
-        this.router.navigate(["/listevent"]);        
+        if(!res.success) {
+          this.message = res.message;
+          this.boolsuc = false;
+          this.boolerr = true;
+        } else {
+          this.message = res.message;
+          this.boolsuc = true;
+          this.boolerr = false;
+          this.userService.storeUserData(res.token, res.user.email);
+          this.router.navigate(["/listevent"]);
+        }
       },
-      
-      err => {}
+
+      err => {
+        console.log(err);
+      }
     );
   }
 }
