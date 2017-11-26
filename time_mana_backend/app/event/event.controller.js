@@ -128,7 +128,7 @@ exports.postEvent = function(req, res) {
 /* ==============
      Get list event
   ============== */
-exports.getEvent = function(req, res) {
+exports.getEvents = function(req, res) {
   User.findOne({ _id: req.decoded.userId }, (err, user) => {
     // Check if error was found
     if (err) {
@@ -156,6 +156,43 @@ exports.getEvent = function(req, res) {
           }
         }
       }).sort({ date: -1 });
+    }
+  });
+};
+/* ==============
+     Get an event
+  ============== */
+exports.getEvent = function(req, res) {
+  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    // Check if error was found
+    if (err) {
+      res.json({ success: false, message: err }); // Return error
+    } else {
+      Event.findOne(
+        { createdBy: user.email, _id: req.params.id },
+        (err, event) => {
+          // Check if error was found or not
+          if (err) {
+            res.json({
+              success: false,
+              message: err
+            }); // Return error message
+          } else {
+            // Check if blogs were found in database
+            if (!event) {
+              res.json({
+                success: false,
+                message: 'No event found.'
+              }); // Return error of no blogs found
+            } else {
+              res.json({
+                success: true,
+                events: event
+              }); // Return success and blogs array
+            }
+          }
+        }
+      ).sort({ date: -1 });
     }
   });
 };
@@ -201,7 +238,7 @@ exports.editEvent = function(req, res) {
             }
           }
         }
-      )
+      );
     }
   });
 };
@@ -238,7 +275,7 @@ exports.deleteEvent = function(req, res) {
             }
           }
         }
-      )
+      );
     }
   });
 };

@@ -1,6 +1,10 @@
 import Event from '../models/event.model';
 import { Observable } from 'rxjs/Rx';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from '@angular/common/http';
 import { Response, Headers, Http, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
@@ -12,26 +16,25 @@ export class EventService {
   options;
   authToken;
   constructor(private http: HttpClient) {}
-  
+
   loadToken() {
     this.authToken = localStorage.getItem('token');
   }
 
-  createEvent (event: Event): Observable<any> {
+  createEvent(event: Event): Observable<any> {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
-    headers= headers.set('Authorization', this.authToken);  
+    headers = headers.set('Authorization', this.authToken);
     console.log(this.authToken);
-    return this.http.post(`${this.eventUrl}`, event, {headers: headers});
-    
+    return this.http.post(`${this.eventUrl}`, event, { headers: headers });
   }
 
   getEvents(): Observable<Event[]> {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
-    headers= headers.set('Authorization', this.authToken);
+    headers = headers.set('Authorization', this.authToken);
     return this.http
-      .get(this.eventUrl, {withCredentials: true, headers: headers})
+      .get(this.eventUrl, { withCredentials: true, headers: headers })
       .map(res => {
         return res['datas'].data as Event[];
       });
@@ -40,19 +43,21 @@ export class EventService {
   getEvent(name: string): Observable<Event[]> {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
-    headers= headers.set('Authorization', this.authToken);
+    headers = headers.set('Authorization', this.authToken);
 
     const getUrl = `${this.eventUrl}/${name}`;
-    return this.http.get(getUrl, { withCredentials: true, headers: headers }).map(res => {
-      console.log(res);
-      return res['data'] as Event[];
-    });
+    return this.http
+      .get(getUrl, { withCredentials: true, headers: headers })
+      .map(res => {
+        console.log(res);
+        return res['data'] as Event[];
+      });
   }
 
   deleteEvent(id: string): any {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
-    headers= headers.set('Authorization', this.authToken);
+    headers = headers.set('Authorization', this.authToken);
 
     const deleteUrl = `${this.eventUrl}/${id}`;
     return this.http
@@ -63,5 +68,4 @@ export class EventService {
         return res;
       });
   }
-  
 }

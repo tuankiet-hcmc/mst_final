@@ -7,17 +7,15 @@ import Event from '../../../models/event.model';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
   encapsulation: ViewEncapsulation.None
-  
 })
 export class AddComponent implements OnInit {
   message = '';
   boolerr = false;
   boolsuc = false;
-  constructor(    private eventService: EventService
-  ) { }
+  constructor(private eventService: EventService) {}
   public newEvent: Event = new Event();
   eventsList: Event[];
-  
+
   ngOnInit(): void {
     this.eventService.getEvents().subscribe(event => {
       this.eventsList = event;

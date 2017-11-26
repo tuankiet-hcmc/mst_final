@@ -5,55 +5,36 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UserService {
-  api_url = 'http://localhost:3000';
-  usersUrl = `${this.api_url}/users`;
+  api_url = environment.domain;
+  usersUrl = `${this.api_url}/auth`;
+  authToken;
+  user;
   constructor(private http: HttpClient) {}
   // Create User, takes a User Object
-  createUser(user: User): Observable<any> {
+  register(user: User): Observable<any> {
     // returns the observable of http post request
-    return this.http.post(`${this.usersUrl}`, user, {
+    return this.http.post(`${this.usersUrl}/signup`, user, {
       withCredentials: true
     });
   }
 
   // Read User, takes no arguments
-  getUsers(): Observable<User[]> {
-    return this.http
-      .get(this.usersUrl, {
-        withCredentials: true
-      })
-      .map(res => {
-        // Maps the response object sent from the server
-        return res['datas'].data as User[];
-      });
-  }
-
-  // Read User, takes a User Name as parameter
-  getUser(name: string): Observable<User[]> {
-    const getUrl = `${this.usersUrl}/${name}`;
-    return this.http.get(getUrl, { withCredentials: true }).map(res => {
-      // Maps the response object sent from the server
-      console.log(res);
-      return res['data'] as User[];
+  login(user: User): Observable<any> {
+    return this.http.post(`${this.usersUrl}/signin`, user, {
+      withCredentials: true
     });
   }
-
-  // Delete User, takes a User Object as parameter
-  deleteUser(id: string): any {
-    // Delete the object by the id
-    const deleteUrl = `${this.usersUrl}/${id}`;
-    return this.http
-      .delete(deleteUrl, {
-        withCredentials: true
-      })
-      .map(res => {
-        return res;
-      });
+  // Function to store user's data in client local storage
+  storeUserData(token, user) {
+    localStorage.setItem('token', token); // Set token in local storage
+    localStorage.setItem('user', JSON.stringify(user)); // Set user in local storage as string
+    this.authToken = token; // Assign token to be used elsewhere
+    this.user = user; // Set user to be used elsewhere
   }
-
   // Default Error handling method.
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
