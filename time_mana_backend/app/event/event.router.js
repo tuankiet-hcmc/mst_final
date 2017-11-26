@@ -7,9 +7,10 @@ module.exports = function(router) {
   router
     .route('/')
     .post(eventController.postEvent)
-    .get(eventController.getEvent);
+    .get(eventController.getEvents);
   router
     .route('/:id')
+    .get(eventController.getEvent)
     .put(eventController.editEvent)
     .delete(eventController.deleteEvent);
 

@@ -1,3 +1,40 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <div class='row'>
+    <div class='col-md-4'></div>
+    <div class='col-md-4'>
+      <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
+      <form accept-charset="UTF-8" class="require-validation" id="payment-form">
+        <div class='form-row'>
+          <div class='col-xs-12 form-group card required'>
+            <label class='control-label'>Name</label>
+            <input type="text" name="eventname" id="eventname" [(ngModel)]="newUser.name" placeholder="EventName" class="form-control"
+              required>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class='col-xs-12 form-group card required'>
+            <label class='control-label'>Email</label>
+            <input name="description" id="description" [(ngModel)]="newUser.email" placeholder="Description" class="form-control"
+              required>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class='col-xs-12 form-group card required'>
+            <label class='control-label'>Passwword</label>
+            <input name="date" id="date" [(ngModel)]="newUser.password" placeholder="Date" class="form-control" required>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class='col-md-12 form-group'>
+            <button type="submit" class="btn btn-primary" (click)="register()">Register</button>
+          </div>
+          <div class="col-md-12 form-group">
+            <div *ngIf="boolerr" class="alert alert-danger">{{message}}</div>
+            <div *ngIf="boolsuc" class="alert alert-success">{{message}}</div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class='col-md-4'></div>
+  </div>
+</div>

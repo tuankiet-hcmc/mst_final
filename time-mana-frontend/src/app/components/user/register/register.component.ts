@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
-
+import User from '../../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -10,10 +10,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  message = '';
+  boolerr = false;
+  boolsuc = false;
+  constructor(private userService: UserService, private router: Router) {}
+  public newUser: User = new User();
+  ngOnInit() {}
+  register() {
+    this.userService.register(this.newUser).subscribe(
+      res => {
+        this.message = res.message;
+        this.boolsuc = true;
+        this.boolerr = false;
+        this.newUser = new User();
+        this.router.navigate(["/login"]);        
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
-
 }
