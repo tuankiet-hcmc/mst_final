@@ -19,17 +19,20 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.eventService.getEvents().subscribe(event => {
+      console.log(event);
       this.eventList = event;
     });
   }
+
   // editEvent(event) {
   //   this.eventService.editEvent(event._id).subscribe(
   //     res => {
-  //       this.eventList.splice(this.eventList.indexOf(event), 1);
+  //       this.eventList.replace(this.eventList.indexOf(event), 1);
   //     },
   //     err => {}
   //   );
-  // }
+  //}
+
   deleteEvent(event) {
     this.eventService.deleteEvent(event._id).subscribe(
       res => {
