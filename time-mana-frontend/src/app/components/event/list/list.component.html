@@ -1,3 +1,52 @@
-<p>
-  list works!
-</p>
+<div class="row">
+  <label class='control-label col-md-1'>Search</label>
+  <input type="search" name="search" id="search" [(ngModel)]="text" (ngModelChange)="search($event)">
+  <div class="panel-heading col-xs-8 col-md-11">
+    <span class="lead">List of Events </span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="event" *ngIf="eventList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">Description</th>
+            <th class="h">Date</th>
+            <th class="h">Location</th>
+            <th class="h">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="event" *ngFor="let event of eventList">
+            <td>{{event.name}}</td>
+            <td>{{event.description}}</td>
+            <td>{{event.date}}</td>
+            <td>{{event.location}}</td>
+            <td>{{event.priority}}</td>
+            <td>
+              <button class="btn btn-success" (click)="editEvent(event)">
+                <i class="fa fa-check"></i>
+              </button>
+              <button class="btn btn-danger" (click)="deleteEvent(event)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+      <div class="well">
+        Do you want create new Event?? Go to
+        <a [routerLink]="['/addevent']">Add Event</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>

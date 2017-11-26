@@ -11,12 +11,11 @@ import { LoginedComponent } from './components/navbar/logined/logined.component'
 import { FooterComponent } from './components/footer/footer.component';
 
 const appRoutes: Routes = [
-  { path: '*', component: ListComponent },
+  { path: '', component: ListComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'adevent', component: AddComponent},
-  { path: 'listevent', component: ListComponent},
-  { path: '**', component: ListComponent },
+  { path: 'addevent', component: AddComponent},
+  { path: 'listevent', component: ListComponent}
 ];
 @NgModule({
   declarations: [],
