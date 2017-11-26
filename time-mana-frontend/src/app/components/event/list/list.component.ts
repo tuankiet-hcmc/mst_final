@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import Event from '../../../models/event.model';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list',
@@ -10,10 +11,10 @@ import Event from '../../../models/event.model';
 })
 export class ListComponent implements OnInit {
   constructor(
-    private eventService: EventService
-  ) {}
+    private eventService: EventService, private modalService: NgbModal
+  ) { }
 
-  public newEvent: Event = new Event();
+  public newEvent;
 
   eventList: Event[];
 
@@ -24,21 +25,30 @@ export class ListComponent implements OnInit {
     });
   }
 
-  // editEvent(event) {
-  //   this.eventService.editEvent(event._id).subscribe(
-  //     res => {
-  //       this.eventList.replace(this.eventList.indexOf(event), 1);
-  //     },
-  //     err => {}
-  //   );
-  //}
+  editEvent(event) {
+    this.eventService.editEvent(event._id, this.newEvent ).subscribe(
+      res => {
+        this.eventService.getEvents().subscribe(event => {
+          this.eventList = event;
+
+        }); console.log(res);
+      },
+      err => { }
+    );
+  }
 
   deleteEvent(event) {
     this.eventService.deleteEvent(event._id).subscribe(
       res => {
         this.eventList.splice(this.eventList.indexOf(event), 1);
       },
-      err => {}
+      err => { }
     );
+  }
+
+  open(content, event) {
+    this.newEvent = event;
+    this.modalService.open(content);
+
   }
 }

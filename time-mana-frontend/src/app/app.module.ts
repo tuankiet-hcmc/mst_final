@@ -17,6 +17,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserService } from './services/user.service';
 import { EventService } from './services/event.service';
 import { AsyncLocalStorage } from 'angular-async-local-storage/src/service/lib.service';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import {NgbModal, ModalDismissReasons, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -37,9 +39,10 @@ import { AsyncLocalStorage } from 'angular-async-local-storage/src/service/lib.s
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-
+    BootstrapModalModule,
+    NgbModule.forRoot()
   ],
-  providers: [UserService, EventService],
+  providers: [UserService, EventService, NgbModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

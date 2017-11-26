@@ -65,13 +65,13 @@ export class EventService {
       });
   }
   
-  editEvent(id: string): any {
+  editEvent(id: string, event: Event): any {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
     headers= headers.set('Authorization', this.authToken);
 
     const putUrl = `${this.eventUrl}/${id}`;
-    return this.http.put(putUrl, { withCredentials: true, headers: headers } ).map(res => {
+    return this.http.put(putUrl, event , { withCredentials: true, headers: headers } ).map(res => {
         return res;
       });
   }

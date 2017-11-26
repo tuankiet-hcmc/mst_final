@@ -29,12 +29,61 @@
             <td>{{event.location}}</td>
             <td>{{event.priority}}</td>
             <td>
-              <button class="btn btn-success" (click)="editEvent(event)" data-toggle="modal" data-target="#myModal" >
-                Edit
-              </button>   
+
               <button class="btn btn-danger" (click)="deleteEvent(event)">
                 Delete
               </button>
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Event</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class='form-row'>
+                    <div class='col-xs-12 form-group card required'>
+                      <label class='control-label'>Event Name</label>
+                      <input type="text" name="eventname" id="eventname" [(ngModel)]="newEvent.name" placeholder="EventName" class="form-control"
+                        required>
+                    </div>
+                  </div>
+                  <div class='form-row'>
+                    <div class='col-xs-12 form-group card required'>
+                      <label class='control-label'>Description</label>
+                      <input name="description" id="description" [(ngModel)]="newEvent.description" placeholder="Description" class="form-control"
+                        required>
+                    </div>
+                  </div>
+                  <div class='form-row'>
+                    <div class='col-xs-12 form-group card required'>
+                      <label class='control-label'>Date</label>
+                      <input name="date" id="date" [(ngModel)]="newEvent.date" placeholder="Date" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class='form-row'>
+                    <div class='col-xs-12 form-group card required'>
+                      <label class='control-label'>Location</label>
+                      <input name="location" id="location" [(ngModel)]="newEvent.location" placeholder="Location" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class='form-row'>
+                    <div class='col-xs-12 form-group card required'>
+                      <label class='control-label'>Priority</label>
+                      <select name="priority" id="priority" [(ngModel)]="newEvent.priority" placeholder="Priority" class="form-control" required>
+                        <option value="Important">Important</option>
+                        <option value="Unimportant">Unimportant</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-light" (click)="editEvent(newEvent)" (click)="c('Close click')">Save</button>
+                </div>
+              </ng-template>
+
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content, event)">Edit</button>
+
             </td>
 
           </tr>

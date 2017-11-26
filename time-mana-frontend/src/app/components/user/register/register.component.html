@@ -28,6 +28,10 @@
           <div class='col-md-12 form-group'>
             <button type="submit" class="btn btn-primary" (click)="register()">Register</button>
           </div>
+          <div class="well">
+            Go to
+            <a [routerLink]="['/login']">Login</a>
+          </div>
           <div class="col-md-12 form-group">
             <div *ngIf="boolerr" class="alert alert-danger">{{message}}</div>
             <div *ngIf="boolsuc" class="alert alert-success">{{message}}</div>
