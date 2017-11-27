@@ -54,18 +54,21 @@
         </select>
         </div>
       </div>
+
       <div class='form-row'>
+
         <div class='col-md-12 form-group'>
+            <div class="col-md-12 form-group">
+                <div *ngIf="boolerr" class="alert alert-danger">{{message}}</div>
+                <div *ngIf="boolsuc" class="alert alert-success">{{message}}</div>
+              </div>
           <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
         </div>
         <div class="well">
           Go to
           <a [routerLink]="['/listevent']">Event List</a>
         </div>
-        <div class="col-md-12 form-group">
-          <div *ngIf="boolerr" class="alert alert-danger">{{message}}</div>
-          <div *ngIf="boolsuc" class="alert alert-success">{{message}}</div>
-        </div>
+        
 
       </div>
     </form>

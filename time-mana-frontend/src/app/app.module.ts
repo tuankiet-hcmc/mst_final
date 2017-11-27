@@ -18,7 +18,9 @@ import { AsyncLocalStorage } from 'angular-async-local-storage/src/service/lib.s
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import {NgbModal, ModalDismissReasons, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     EditComponent,
     ListComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BootstrapModalModule,
     NgbModule.forRoot()
   ],
-  providers: [UserService, EventService, NgbModal],
+  providers: [UserService, EventService, NgbModal, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

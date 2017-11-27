@@ -27,10 +27,10 @@ export class ListComponent implements OnInit {
   }
 
   editEvent(event) {
-    this.eventService.editEvent(event._id, this.newEvent ).subscribe(
+    this.eventService.editEvent(event._id, event ).subscribe(
       res => {
-        this.eventService.getEvents().subscribe(event => {
-          this.eventList = event;
+        this.eventService.getEvents().subscribe(events => {
+          this.eventList = events;
 
         }); console.log(res);
       },
@@ -48,10 +48,15 @@ export class ListComponent implements OnInit {
   }
 
   open(content, event) {
-
-    console.log('156465454');
-    this.newEvent = event;
     this.modalService.open(content);
 
   }
+  close() {
+    this.eventService.getEvents().subscribe(event => {
+      console.log(event);
+      this.eventList = event;
+    });
+    
+  }
+
 }
