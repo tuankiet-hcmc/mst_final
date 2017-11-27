@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import Event from '../../../models/event.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Console } from '@angular/core/src/console';
 
 @Component({
   selector: 'app-list',
@@ -47,6 +48,8 @@ export class ListComponent implements OnInit {
   }
 
   open(content, event) {
+
+    console.log('156465454');
     this.newEvent = event;
     this.modalService.open(content);
 

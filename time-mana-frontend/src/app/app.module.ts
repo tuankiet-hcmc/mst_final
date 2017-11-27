@@ -11,14 +11,13 @@ import { RegisterComponent } from './components/user/register/register.component
 import { AddComponent } from './components/event/add/add.component';
 import { EditComponent } from './components/event/edit/edit.component';
 import { ListComponent } from './components/event/list/list.component';
-import { UnloginedComponent } from './components/navbar/unlogined/unlogined.component';
-import { LoginedComponent } from './components/navbar/logined/logined.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserService } from './services/user.service';
 import { EventService } from './services/event.service';
 import { AsyncLocalStorage } from 'angular-async-local-storage/src/service/lib.service';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import {NgbModal, ModalDismissReasons, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -29,9 +28,8 @@ import {NgbModal, ModalDismissReasons, NgbModule} from '@ng-bootstrap/ng-bootstr
     AddComponent,
     EditComponent,
     ListComponent,
-    UnloginedComponent,
-    LoginedComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
