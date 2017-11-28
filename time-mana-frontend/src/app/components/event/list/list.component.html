@@ -1,20 +1,17 @@
 <app-navbar></app-navbar>
-
+<div class=" container">
 <div class="row">
-  <label class='control-label col-md-1'>Search</label>
+   <label class='control-label col-md-1'>Search</label>
   <input type="search" name="search" id="search" [(ngModel)]="text" (ngModelChange)="search($event)">
   <div class="panel-heading col-xs-8 col-md-11">
-    <span class="lead">List of Events </span>
+    <span class="lead"> <b> List of Events </b> </span>
   </div>
 </div>
 
-<div class=" container">
-
   <div class="row">
-
-    <div class="col-sm-6 col-md-4">
-      <div class="event" *ngIf="eventList">
-        <div class="event" *ngFor="let event of eventList">
+    <div class="event" *ngIf="eventList">
+      <div class="event" *ngFor="let event of eventList">
+        <div class="col-sm-6 col-md-3">
 
           <div class="thumbnail">
 
@@ -40,7 +37,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" (click)="close()" >&times;</button>
+                          <button type="button" class="close" data-dismiss="modal" (click)="close()">&times;</button>
                           <h4 class="modal-title"> Edit Event</h4>
                         </div>
                         <div class="modal-body">

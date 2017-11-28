@@ -47,6 +47,18 @@ export class ListComponent implements OnInit {
     );
   }
 
+  search(event) {
+    if (event) {
+      this.eventService.getEvent(event).subscribe(products => {
+        this.eventList = event;
+      });
+    } else {
+      this.eventService.getEvents().subscribe(products => {
+        this.eventList = event;
+      });
+    }
+  }
+
   open(content, event) {
     this.modalService.open(content);
 

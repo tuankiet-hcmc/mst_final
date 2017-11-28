@@ -54,6 +54,9 @@ export class EventService {
     });
   }
 
+
+
+
   deleteEvent(id: string): any {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
