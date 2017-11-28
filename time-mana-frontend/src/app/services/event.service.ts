@@ -36,11 +36,12 @@ export class EventService {
     let headers = new HttpHeaders();
     headers= headers.set('Authorization', this.authToken);
 
-    return this.http.get(this.eventUrl, {withCredentials: true, headers: headers}).map(res => {
+    return this.http.get(`${this.eventUrl}`, {withCredentials: true, headers: headers}).map(res => {
         return res['events'] as Event[];
 
       });
   }
+
 
   getEvent(id: string): Observable<Event> {
     this.loadToken(); // Ge
