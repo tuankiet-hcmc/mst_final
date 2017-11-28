@@ -10,7 +10,7 @@ module.exports = function(router) {
     .get(eventController.getEvents);
   router
     .route('/:id')
-    .get(eventController.getEvent)
+    .get(eventController.getEventById)
     .put(eventController.editEvent)
     .delete(eventController.deleteEvent);
 

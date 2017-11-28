@@ -129,40 +129,89 @@ exports.postEvent = function(req, res) {
      Get list event
   ============== */
 exports.getEvents = function(req, res) {
-  User.findOne({ _id: req.decoded.userId }, (err, user) => {
-    // Check if error was found
-    if (err) {
-      res.json({ success: false, message: err }); // Return error
-    } else {
-      Event.find({ createdBy: user.email }, (err, events) => {
-        // Check if error was found or not
-        if (err) {
-          res.json({
-            success: false,
-            message: err
-          }); // Return error message
-        } else {
-          // Check if blogs were found in database
-          if (!events) {
+  var pageOptions = {
+    page: Number(req.query.page) || 0,
+    limit: Number(req.query.limit) || 10
+  };
+  if (req.query.name) {
+    var name = req.query.name;
+    User.findOne({ _id: req.decoded.userId }, (err, user) => {
+      // Check if error was found
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        Event.ensureIndexes({ name: 'text' });
+        Event.findOne({ createdBy: user.email, name: name }, function(err, event) {
+          // Check if error was found or not
+          if (err) {
             res.json({
               success: false,
-              message: 'No events found.'
-            }); // Return error of no blogs found
+              message: err
+            }); // Return error message
           } else {
-            res.json({
-              success: true,
-              events: events
-            }); // Return success and blogs array
+            if (!event) {
+              Event.find(
+                {
+                  createdBy: user.email,
+                  name: { $regex: name }
+                },
+                function(err, event2) {
+                  if (err) {
+                    res.json({
+                      success: false,
+                      message: 'No event found.'
+                    });
+                  } else {
+                    console.log(event2);
+                    res.json({
+                      success: true,
+                      events: event2
+                    });
+                  }
+                }
+              )
+                .skip(pageOptions.page * pageOptions.limit)
+                .limit(pageOptions.limit);
+            } else {
+              res.json({ success: true, events: event });
+            }
           }
-        }
-      }).sort({ date: -1 });
-    }
-  });
+        })
+          .skip(pageOptions.page * pageOptions.limit)
+          .limit(pageOptions.limit)
+          .sort({ date: -1 });
+      }
+    });
+  } else {
+    User.findOne({ _id: req.decoded.userId }, (err, user) => {
+      // Check if error was found
+      if (err) {
+        res.json({ success: false, message: err }); // Return error
+      } else {
+        Event.find({ createdBy: user.email }, (err, events) => {
+          // Check if error was found or not
+          if (err) {
+            res.json({ success: false, message: err }); // Return error message
+          } else {
+            // Check if blogs were found in database
+            if (!events) {
+              res.json({ success: false, message: 'No events found.' }); // Return error of no blogs found
+            } else {
+              res.json({ success: true, events: events }); // Return success and blogs array
+            }
+          }
+        })
+          .skip(pageOptions.page * pageOptions.limit)
+          .limit(pageOptions.limit)
+          .sort({ date: -1 });
+      }
+    });
+  }
 };
 /* ==============
-     Get an event
+     Get an event by ID
   ============== */
-exports.getEvent = function(req, res) {
+exports.getEventById = function(req, res) {
   User.findOne({ _id: req.decoded.userId }, (err, user) => {
     // Check if error was found
     if (err) {
@@ -196,6 +245,7 @@ exports.getEvent = function(req, res) {
     }
   });
 };
+
 /* ==============
      Edit event
   ============== */

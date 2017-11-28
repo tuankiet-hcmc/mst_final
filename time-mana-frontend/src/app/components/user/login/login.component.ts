@@ -9,16 +9,15 @@ import { Route } from '@angular/router/src/config';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UserService, private router : Router) {}
+  constructor(private userService: UserService, private router: Router) {}
   public user: User = new User();
   ngOnInit() {}
   login() {
     this.userService.login(this.user).subscribe(
       res => {
         this.userService.storeUserData(res.token, res.user.email);
-        this.router.navigate(["/listevent"]);        
+        this.router.navigate(['/listevent']);
       },
-      
       err => {}
     );
   }
