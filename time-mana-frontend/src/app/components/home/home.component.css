@@ -1,3 +1,24 @@
-.b1{
-    background-image: url(https://previews.123rf.com/images/haywiremedia/haywiremedia1001/haywiremedia100100013/6159921-A-white-clock-with-numbers-is-against-a-calendar-background-displaying-dates-of-a-month-Can-represen-Stock-Photo.jpg);
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 6px;
+    cursor: pointer;
+}
+button1 {
+    background-color: #1b5e20; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 6px;
+    cursor: pointer;
 }
