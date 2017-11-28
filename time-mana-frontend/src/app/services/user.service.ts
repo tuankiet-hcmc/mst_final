@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import { tokenNotExpired } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class UserService {
   usersUrl = `${this.api_url}/auth`;
   authToken;
   user;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   // Create User, takes a User Object
   register(user: User): Observable<any> {
     // returns the observable of http post request
@@ -40,4 +41,15 @@ export class UserService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
+  logout() {
+    console.log(13212312312);
+    this.authToken = null; // Set token to null
+    this.user = null; // Set user to null
+    localStorage.clear(); // Clear local storage
+  }
+  // Function to check if user is logged in
+  loggedIn() {
+    return tokenNotExpired();
+  }
+
 }

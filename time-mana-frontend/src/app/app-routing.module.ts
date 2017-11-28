@@ -6,21 +6,25 @@ import { RegisterComponent } from './components/user/register/register.component
 import { AddComponent } from './components/event/add/add.component';
 import { EditComponent } from './components/event/edit/edit.component';
 import { ListComponent } from './components/event/list/list.component';
-import { UnloginedComponent } from './components/navbar/unlogined/unlogined.component';
-import { LoginedComponent } from './components/navbar/logined/logined.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
 
 const appRoutes: Routes = [
-  { path: '', component: ListComponent },
-  { path: 'register', component: RegisterComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'addevent', component: AddComponent},
-  { path: 'listevent', component: ListComponent}
+  { path: '', component: HomeComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
+  { path: 'addevent', component: AddComponent, canActivate: [AuthGuard] },
+  { path: 'listevent', component: ListComponent, canActivate: [AuthGuard] },
+  
+  
 ];
 @NgModule({
   declarations: [],
   imports: [
-      RouterModule.forRoot(appRoutes, { enableTracing: true })
+    RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   providers: [],
   bootstrap: [],

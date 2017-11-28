@@ -4,7 +4,8 @@ const crypto = require('crypto')
 
 // Export config object
 module.exports = {
-  uri: 'mongodb://localhost/mst_final', // Databse URI and database name
+  //uri: 'mongodb://localhost/mst_final',
+  uri: 'mongodb://hao1:123456@ds147304.mlab.com:47304/mst_final', // Databse URI and database name
   secret: crypto, // Cryto-created secret
   db: 'mst_final'
 };
