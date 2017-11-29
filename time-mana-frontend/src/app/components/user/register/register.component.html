@@ -5,26 +5,45 @@
       <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
       <form accept-charset="UTF-8" class="require-validation" id="payment-form">
         <h1> <b> REGISTER</b></h1>
-        <div class='form-row'>
-          <div class='col-xs-12 form-group card required'>
-            <label class='control-label'>Name</label>
-            <input type="text" name="eventname" id="eventname" [(ngModel)]="newUser.name" placeholder="UserName" class="form-control"
-              required>
+        <form [formGroup]="form">
+          <div class='form-row'>
+            <div class="form-group">
+              <div class='col-xs-12 form-group card required'>
+                <label class='control-label'>Name</label>
+                <input type="text" name="eventname" id="eventname" [(ngModel)]="newUser.name" placeholder="UserName" class="form-control"
+                  formControlName="username" required>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class='form-row'>
-          <div class='col-xs-12 form-group card required'>
-            <label class='control-label'>Email</label>
-            <input name="description" id="description" [(ngModel)]="newUser.email" placeholder="Email" class="form-control"
-              required>
+          <div class='form-row'>
+            <div class="form-group">
+              <div class='col-xs-12 form-group card required'>
+                <label class='control-label'>Email</label>
+                <input name="description" id="description" [(ngModel)]="newUser.email" placeholder="Email" class="form-control"
+                  formControlName="email" required>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class='form-row'>
-          <div class='col-xs-12 form-group card required'>
-            <label class='control-label'>Password</label>
-            <input type="password" name="date" id="date" [(ngModel)]="newUser.password" placeholder="Password" class="form-control" required>
+          <div class='form-row'>
+            <div class="form-group">
+              <div class='col-xs-12 form-group card required'>
+                <label class='control-label'>Password</label>
+                <input type="password" name="date" id="date" [(ngModel)]="newUser.password" placeholder="Password" class="form-control"
+                  formControlName="password" required>
+              </div>
+            </div>
           </div>
-        </div>
+          <div class='form-row'>
+            <div class="form-group">
+              <div class='col-xs-12 form-group card required'>
+                <label for="confirm" class='control-label'>Confirm Password</label>
+                <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
+                    <input type="password" name="confirm" class="form-control" placeholder="Confirm Password" formControlName="confirm" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
         <div class='form-row'>
           <div class='col-md-12 form-group'>
             <button type="submit" class="btn btn-primary" (click)="register()">Register</button>
