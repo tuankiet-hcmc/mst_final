@@ -69,46 +69,13 @@ export class CalendarComponent implements OnInit {
       label: '<i class="fa fa-fw fa-times"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.delete(event);
       }
     }
   ];
 
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[];
-  // events: CalendarEvent[] = [
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
   activeDayIsOpen = true;
 
   constructor(private eventService: EventService, public dialog: MatDialog) {}
@@ -119,6 +86,7 @@ export class CalendarComponent implements OnInit {
       event.forEach(element => {
         element.start = new Date(element.start);
         element.end = new Date(element.end);
+        element.actions = this.actions;
       });
       this.events = event;
     });
@@ -161,19 +129,12 @@ export class CalendarComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
+  delete(event) {
+    this.eventService.deleteEvent(event._id).subscribe(
+      res => {
+        this.refresh.next();
+      },
+      err => {}
+    );
   }
 }

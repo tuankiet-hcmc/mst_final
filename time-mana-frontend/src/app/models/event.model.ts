@@ -22,7 +22,7 @@ class Event implements CalendarEvent {
   end: Date;
   location: string;
   color: EventColor;
-
+  actions: CalendarEventAction[];
   constructor() {
     this.title = '';
     this.description = '';

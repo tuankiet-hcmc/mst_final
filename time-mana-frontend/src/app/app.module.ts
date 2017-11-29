@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { AddComponent } from './components/event/add/add.component';
-import { EditComponent } from './components/event/edit/edit.component';
 import { ListComponent } from './components/event/list/list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserService } from './services/user.service';
@@ -25,7 +24,37 @@ import {
   NgbModalModule
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  MatDialogModule
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule
 } from '@angular/material';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -42,7 +71,6 @@ import { DialogEventComponent } from './components/dialog/dialog-event/dialog-ev
     LoginComponent,
     RegisterComponent,
     AddComponent,
-    EditComponent,
     ListComponent,
     FooterComponent,
     NavbarComponent,
@@ -61,6 +89,37 @@ import { DialogEventComponent } from './components/dialog/dialog-event/dialog-ev
     AppRoutingModule,
     BootstrapModalModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatStepperModule,
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
     NgbModule.forRoot()
@@ -68,8 +127,6 @@ import { DialogEventComponent } from './components/dialog/dialog-event/dialog-ev
   providers: [UserService, EventService, NgbModal, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent, CalendarComponent, DialogEventComponent],
   exports: [CalendarComponent],
-  entryComponents: [
-    DialogEventComponent
-  ],
+  entryComponents: [DialogEventComponent]
 })
 export class AppModule {}
