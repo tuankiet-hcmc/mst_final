@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import Event from '../../../models/event.model';
-
+import { Subject } from 'rxjs/Subject';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -12,15 +12,12 @@ export class AddComponent implements OnInit {
   message = '';
   boolerr = false;
   boolsuc = false;
+  refresh: Subject<any> = new Subject();
   constructor(private eventService: EventService) {}
   public newEvent: Event = new Event();
-  eventsList: Event[];
+
 
   ngOnInit(): void {
-    this.eventService.getEvents().subscribe(event => {
-      this.eventsList = event;
-      console.log(event);
-    });
   }
 
   create() {

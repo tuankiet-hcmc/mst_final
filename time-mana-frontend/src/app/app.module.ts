@@ -67,7 +67,7 @@ import { DialogEventComponent } from './components/dialog/dialog-event/dialog-ev
   ],
   providers: [UserService, EventService, NgbModal, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent, CalendarComponent, DialogEventComponent],
-  exports: [CalendarComponent]
+  exports: [CalendarComponent],
   entryComponents: [
     DialogEventComponent
   ],

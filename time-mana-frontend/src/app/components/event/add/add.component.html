@@ -25,7 +25,7 @@
       <div class='form-row'>
         <div class='col-xs-12 form-group card required'>
           <label class='control-label'>Event Name</label>
-          <input type="text" name="eventname" id="eventname" [(ngModel)]="newEvent.name" placeholder="EventName" class="form-control" required>
+          <input type="text" name="eventname" id="eventname" [(ngModel)]="newEvent.title" placeholder="EventName" class="form-control" required>
         </div>
       </div>
       <div class='form-row'>
@@ -36,8 +36,16 @@
       </div>
       <div class='form-row'>
         <div class='col-xs-12 form-group card required'>
-          <label class='control-label'>Date</label>
-          <input name="date" id="date" [(ngModel)]="newEvent.date" placeholder="Date" class="form-control"  required>
+          <label class='control-label'>Start Date</label>
+          <app-date-time-picker name="start" [(ngModel)]="newEvent.start" placeholder="Not set">
+          </app-date-time-picker>
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='col-xs-12 form-group card required'>
+          <label class='control-label'>End Date</label>
+          <app-date-time-picker name="end" [(ngModel)]="newEvent.end" placeholder="Not set">
+          </app-date-time-picker>
         </div>
       </div>
       <div class='form-row'>
@@ -48,11 +56,14 @@
       </div>
       <div class='form-row'>
         <div class='col-xs-12 form-group card required'>
-          <label class='control-label'>Priority</label>
-          <select name="priority" id="priority" [(ngModel)]="newEvent.priority" placeholder="Priority" class="form-control"  required>
-            <option value="Important">Important</option>
-            <option value="Unimportant">Unimportant</option>
-        </select>
+          <label class='control-label'>Primary Color</label>
+          <input type="color" [(ngModel)]="newEvent.color.primary" name="color">
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='col-xs-12 form-group card required'>
+          <label class='control-label'>Secondary Color</label>
+          <input type="color" [(ngModel)]="newEvent.color.secondary" name="color">
         </div>
       </div>
 
@@ -69,7 +80,7 @@
           Go to
           <a [routerLink]="['/listevent']">Event List</a>
         </div>
-        
+
 
       </div>
     </form>

@@ -23,7 +23,7 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent
 } from 'angular-calendar';
-import {CalendarDatePipe} from 'angular-calendar/modules/common/calendar-date.pipe';
+import { CalendarDatePipe } from 'angular-calendar/modules/common/calendar-date.pipe';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -39,7 +39,9 @@ const colors: any = {
   }
 };
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {DialogEventComponent} from '../dialog/dialog-event/dialog-event.component';
+import { DialogEventComponent } from '../dialog/dialog-event/dialog-event.component';
+import Event from '../../models/event.model';
+import { EventService } from '../../services/event.service';
 @Component({
   selector: 'app-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,8 +49,6 @@ import {DialogEventComponent} from '../dialog/dialog-event/dialog-event.componen
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
   view = 'month';
 
   viewDate: Date = new Date();
@@ -75,46 +75,54 @@ export class CalendarComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
-
+  events: CalendarEvent[];
+  // events: CalendarEvent[] = [
+  //   {
+  //     start: subDays(startOfDay(new Date()), 1),
+  //     end: addDays(new Date(), 1),
+  //     title: 'A 3 day event',
+  //     color: colors.red,
+  //     actions: this.actions
+  //   },
+  //   {
+  //     start: startOfDay(new Date()),
+  //     title: 'An event with no end date',
+  //     color: colors.yellow,
+  //     actions: this.actions
+  //   },
+  //   {
+  //     start: subDays(endOfMonth(new Date()), 3),
+  //     end: addDays(endOfMonth(new Date()), 3),
+  //     title: 'A long event that spans 2 months',
+  //     color: colors.blue
+  //   },
+  //   {
+  //     start: addHours(startOfDay(new Date()), 2),
+  //     end: new Date(),
+  //     title: 'A draggable and resizable event',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true
+  //     },
+  //     draggable: true
+  //   }
+  // ];
   activeDayIsOpen = true;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private eventService: EventService, public dialog: MatDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.events);
+    this.eventService.getEvents().subscribe(event => {
+      event.forEach(element => {
+        element.start = new Date(element.start);
+        element.end = new Date(element.end);
+      });
+      this.events = event;
+    });
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -146,7 +154,6 @@ export class CalendarComponent implements OnInit {
   }
   openDialog(data): void {
     const dialogRef = this.dialog.open(DialogEventComponent, {
-      size: 'lg',
       data: data
     });
 

@@ -7,7 +7,8 @@ const config = require('../../config/database');
      Post event
   ============== */
 exports.postEvent = function(req, res) {
-  if (!req.body.name) {
+  console.log(req.body);
+  if (!req.body.title) {
     res.json({ success: false, message: 'Event name is required.' });
   } else {
     if (!req.body.description) {
@@ -16,7 +17,7 @@ exports.postEvent = function(req, res) {
         message: 'Event description is required.'
       });
     } else {
-      if (!req.body.date) {
+      if (!req.body.start) {
         res.json({
           success: false,
           message: 'Event date is required.'
@@ -28,10 +29,10 @@ exports.postEvent = function(req, res) {
             message: 'Event location is required.'
           });
         } else {
-          if (!req.body.priority) {
+          if (!req.body.color) {
             res.json({
               success: false,
-              message: 'Event oriority is required.'
+              message: 'Event color is required.'
             });
           } else {
             User.findOne({ _id: req.decoded.userId }, (err, user) => {
@@ -46,12 +47,14 @@ exports.postEvent = function(req, res) {
                     message: 'Unable to authenticate user'
                   }); // Return error message
                 } else {
+                  console.log(req.body);
                   const event = new Event({
-                    name: req.body.name,
+                    title: req.body.title,
                     description: req.body.description,
                     location: req.body.location,
-                    date: req.body.date,
-                    priority: req.body.priority,
+                    start: new Date(req.body.start),
+                    end: req.body.end,
+                    color: req.body.color,
                     createdBy: user.email,
                     createdAt: new Date(Date.now()).toLocaleString() // CreatedBy field
                   });
@@ -141,7 +144,10 @@ exports.getEvents = function(req, res) {
         res.json({ success: false, message: err }); // Return error
       } else {
         Event.ensureIndexes({ name: 'text' });
-        Event.findOne({ createdBy: user.email, name: name }, function(err, event) {
+        Event.findOne({ createdBy: user.email, name: name }, function(
+          err,
+          event
+        ) {
           // Check if error was found or not
           if (err) {
             res.json({
@@ -256,11 +262,12 @@ exports.editEvent = function(req, res) {
       res.json({ success: false, message: err }); // Return error
     } else {
       var doc = {
-        name: req.body.name,
+        title: req.body.title,
         description: req.body.description,
-        date: req.body.date,
+        start: new Date(req.body.start),
+        end: req.body.end,
         location: req.body.location,
-        priority: req.body.priority,
+        color: req.body.color,
         createdAt: new Date(Date.now()).toLocaleString()
       };
       Event.update(

@@ -16,15 +16,19 @@
           <div class="thumbnail">
 
             <div class="caption">
-              <div>Event Name: {{event.name}}
+              <div>Event Name: {{event.title}}
               </div>
               <div>Description: {{event.description}}
               </div>
-              <div>Date: {{event.date}}
+              <div>Start Date: {{event.start}}
+              </div>
+              <div>End Date: {{event.end}}
               </div>
               <div>Localtion: {{event.location}}
               </div>
-              <div>Priority: {{event.priority}}
+              <div>Primary Color: {{event.color.primary}}
+              </div>
+              <div>Secondary: {{event.color.secondary}}
               </div>
 
               <div>
@@ -44,7 +48,7 @@
                           <div class='form-row'>
                             <div class='col-xs-12 form-group card required'>
                               <label class='control-label'>Event Name</label>
-                              <input type="text" name="eventname" id="eventname" [(ngModel)]="event.name" placeholder="EventName" class="form-control"
+                              <input type="text" name="eventname" id="eventname" [(ngModel)]="event.title" placeholder="EventName" class="form-control"
                                 required>
                             </div>
                           </div>
@@ -57,8 +61,14 @@
                           </div>
                           <div class='form-row'>
                             <div class='col-xs-12 form-group card required'>
-                              <label class='control-label'>Date</label>
-                              <input name="date" id="date" [(ngModel)]="event.date" placeholder="Date" class="form-control" required>
+                              <label class='control-label'>Start Date</label>
+                              <input name="date" id="date" [(ngModel)]="event.start" placeholder="Date" class="form-control" required>
+                            </div>
+                          </div>
+                          <div class='form-row'>
+                            <div class='col-xs-12 form-group card required'>
+                              <label class='control-label'>End Date</label>
+                              <input name="date" id="date" [(ngModel)]="event.end" placeholder="Date" class="form-control" required>
                             </div>
                           </div>
                           <div class='form-row'>
@@ -69,11 +79,14 @@
                           </div>
                           <div class='form-row'>
                             <div class='col-xs-12 form-group card required'>
-                              <label class='control-label'>Priority</label>
-                              <select name="priority" id="priority" [(ngModel)]="event.priority" placeholder="Priority" class="form-control" required>
-                                <option value="Important">Important</option>
-                                <option value="Unimportant">Unimportant</option>
-                              </select>
+                              <label class='control-label'>Primary Color</label>
+                              <input type="color" [(ngModel)]="event.color.primary" name="color">
+                            </div>
+                          </div>
+                          <div class='form-row'>
+                            <div class='col-xs-12 form-group card required'>
+                              <label class='control-label'>Secondary Color</label>
+                              <input type="color" [(ngModel)]="event.color.secondary" name="color">
                             </div>
                           </div>
                         </div>

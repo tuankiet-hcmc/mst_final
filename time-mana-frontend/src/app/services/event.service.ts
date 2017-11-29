@@ -68,7 +68,7 @@ export class EventService {
         return res;
       });
   }
-  
+
   editEvent(id: string, event: Event): any {
     this.loadToken(); // Ge
     let headers = new HttpHeaders();
@@ -80,5 +80,5 @@ export class EventService {
       });
   }
 
-  
+
 }

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 var eventSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true,
     validate: [
@@ -26,11 +26,11 @@ var eventSchema = new Schema({
       'Description must be between 5 and 30 characters'
     ]
   },
-  startDate: {
+  start: {
     type: Date,
     required: true
   },
-  endDate: {
+  end: {
     type: Date,
     required: true
   },
@@ -45,8 +45,14 @@ var eventSchema = new Schema({
     ]
   },
   color: {
-    type: String,
-    required: true
+    primary: {
+      type: String,
+      required: true
+    },
+    secondary: {
+      type: String,
+      required: true
+    }
   },
   createdBy: { type: String, required: true },
   createdAt: { type: String, required: true }
