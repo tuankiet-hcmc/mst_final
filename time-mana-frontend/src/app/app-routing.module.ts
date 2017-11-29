@@ -14,8 +14,8 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'addevent', component: AddComponent, canActivate: [AuthGuard] },
   { path: 'listevent', component: ListComponent, canActivate: [AuthGuard] },
   
