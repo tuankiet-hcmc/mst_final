@@ -26,13 +26,13 @@ var eventSchema = new Schema({
       'Description must be between 5 and 30 characters'
     ]
   },
-  date: {
-    type: String,
-    required: true,
-    match: [
-      /^(19|20)\d{2}\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])$/,
-      'Date only allow format yyyy-mm-dd'
-    ]
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate: {
+    type: Date,
+    required: true
   },
   location: {
     type: String,
@@ -44,15 +44,9 @@ var eventSchema = new Schema({
       'Location must be between 5 and 30 characters'
     ]
   },
-  priority: {
+  color: {
     type: String,
-    required: true,
-    validate: [
-      function(priority) {
-        return priority === 'Important' || priority === 'Unimportant';
-      },
-      "Priority must be 'Important' or 'Unimportant'"
-    ]
+    required: true
   },
   createdBy: { type: String, required: true },
   createdAt: { type: String, required: true }
