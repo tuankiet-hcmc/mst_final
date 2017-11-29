@@ -34,7 +34,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CalendarHeaderComponent } from './calendar-utils/calendar-header/calendar-header.component';
 import { DateTimePickerComponent } from './calendar-utils/date-time-picker/date-time-picker.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { CalendarDialogComponent } from './components/calendar/calendar.component';
+import { DialogEventComponent } from './components/dialog/dialog-event/dialog-event.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { CalendarDialogComponent } from './components/calendar/calendar.componen
     CalendarHeaderComponent,
     DateTimePickerComponent,
     CalendarComponent,
-    CalendarDialogComponent
+    DialogEventComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,10 @@ import { CalendarDialogComponent } from './components/calendar/calendar.componen
     NgbModule.forRoot()
   ],
   providers: [UserService, EventService, NgbModal, AuthGuard, NotAuthGuard],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, CalendarComponent, DialogEventComponent],
   exports: [CalendarComponent]
+  entryComponents: [
+    DialogEventComponent
+  ],
 })
 export class AppModule {}

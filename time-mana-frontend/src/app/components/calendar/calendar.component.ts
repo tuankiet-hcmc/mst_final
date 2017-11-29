@@ -39,6 +39,7 @@ const colors: any = {
   }
 };
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {DialogEventComponent} from '../dialog/dialog-event/dialog-event.component';
 @Component({
   selector: 'app-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -144,8 +145,8 @@ export class CalendarComponent implements OnInit {
     this.openDialog(this.modalData);
   }
   openDialog(data): void {
-    const dialogRef = this.dialog.open(CalendarDialogComponent, {
-      width: '250px',
+    const dialogRef = this.dialog.open(DialogEventComponent, {
+      size: 'lg',
       data: data
     });
 
@@ -167,20 +168,5 @@ export class CalendarComponent implements OnInit {
       }
     });
     this.refresh.next();
-  }
-}
-
-@Component({
-  selector: 'app-calendar-dialog',
-  templateUrl: 'calendar.dialog.html'
-})
-export class CalendarDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<CalendarComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }
