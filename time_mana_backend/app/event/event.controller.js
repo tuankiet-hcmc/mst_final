@@ -140,7 +140,7 @@ exports.postEvent = function (req, res) {
      Get list event
   ============== */
 exports.getEvents = function (req, res) {
-  console.log(req.query.name);
+  console.log(req.query);
   var pageOptions = {
     page: Number(req.query.page) || 0,
     limit: Number(req.query.limit) || 10

@@ -20,6 +20,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ListComponent implements OnInit {
   text;
+  intPage = 0;
+
   constructor(
     private eventService: EventService,
     private modalService: NgbModal,
@@ -34,7 +36,7 @@ export class ListComponent implements OnInit {
     event: Event;
   };
   ngOnInit() {
-    this.eventService.getEvents().subscribe(event => {
+    this.eventService.getEventsLimit('0').subscribe(event => {
       console.log(event);
       this.eventList = event;
     });
@@ -91,5 +93,37 @@ export class ListComponent implements OnInit {
       console.log(event);
       this.eventList = event;
     });
+  }
+  nextPage() {
+    this.intPage++;
+    this.eventService.getEventsLimit('' + this.intPage).subscribe(events => {
+      console.log(events.length);
+      console.log(events !== this.eventList);
+      if (events.length > 0) {
+        this.eventList = events;
+      } else {
+        this.intPage--;
+      }
+    });
+  }
+  prePage() {
+    if (this.check()) {
+      this.intPage--;
+      this.eventService.getEventsLimit('' + this.intPage).subscribe(events => {
+        if (events) {
+          this.eventList = events;
+        }
+      });
+    }
+  }
+
+  check() {
+    const intValue = this.intPage;
+
+    if (intValue > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

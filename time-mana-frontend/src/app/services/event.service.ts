@@ -52,7 +52,29 @@ export class EventService {
     params = params.append('name', name);
 
     return this.http
-      .get(`${this.eventUrl}`, { params: params, withCredentials: true, headers: headers })
+      .get(`${this.eventUrl}`, {
+        params: params,
+        withCredentials: true,
+        headers: headers
+      })
+      .map(res => {
+        return res['events'] as Event[];
+      });
+  }
+  getEventsLimit(page: string): Observable<Event[]> {
+    this.loadToken(); // Ge
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', this.authToken);
+
+    let params = new HttpParams();
+    params = params.append('limit', '10');
+    params = params.append('page', page);
+    return this.http
+      .get(`${this.eventUrl}`, {
+        params: params,
+        withCredentials: true,
+        headers: headers
+      })
       .map(res => {
         return res['events'] as Event[];
       });

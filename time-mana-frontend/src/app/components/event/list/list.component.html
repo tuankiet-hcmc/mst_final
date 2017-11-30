@@ -34,15 +34,15 @@
               </div>
               <div>Description: {{event.description}}
               </div>
-              <div>Start Date: {{event.start}}
+              <div>Start Date: {{event.start | date}}
               </div>
-              <div>End Date: {{event.end}}
+              <div>End Date: {{event.end | date}}
               </div>
               <div>Localtion: {{event.location}}
               </div>
-              <div>Primary Color: {{event.color.primary}}
+              <div>Color 1: <input type="color" [(ngModel)]="event.color.primary" name="color" disabled>
               </div>
-              <div>Secondary: {{event.color.secondary}}
+              <div>Color 2: <input type="color" [(ngModel)]="event.color.secondary" name="color" disabled>
               </div>
 
               <div>
@@ -60,22 +60,7 @@
     </div>
   </div>
   <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
+    <button *ngIf="check()" mat-raised-button color="primary" (click)="prePage()"><< Trang trước</button>
+    <button mat-raised-button color="primary" (click)="nextPage()">Trang kế >></button>
   </nav>
 </div>
