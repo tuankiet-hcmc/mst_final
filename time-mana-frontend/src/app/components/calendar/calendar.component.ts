@@ -146,7 +146,6 @@ export class CalendarComponent implements OnInit {
   }
   openDialog(data): void {
     const dialogRef = this.dialog.open(DialogEventComponent, {
-      size: 'lg',
       data: data
     });
 
