@@ -1,13 +1,27 @@
 <app-navbar></app-navbar>
-<div class=" container">
-<div class="row">
-   <label class='control-label col-md-1'>Search</label>
-  <input type="search" name="search" id="search" [(ngModel)]="text" (ngModelChange)="search($event)">
-  <div class="panel-heading col-xs-8 col-md-11">
-    <span class="lead"> <b> List of Events </b> </span>
+<div class="text-center">
+  <div class="text-right">
+    <div class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" [(ngModel)]="text" (ngModelChange)="search($event)">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+    </div>
+  </div>
+  <h1>
+    <b class="fa fa-calendar">
+      <b> ONLINE TIMETABLE </b>
+    </b>
+  </h1>
+  <div class="list-group">
+    <a class="list-group-item active">
+      <h4>
+        <b>LIST EVENT</b>
+      </h4>
+      <p></p>
+    </a>
+
   </div>
 </div>
-
+<div class=" container">
   <div class="row">
     <div class="event" *ngIf="eventList">
       <div class="event" *ngFor="let event of eventList">

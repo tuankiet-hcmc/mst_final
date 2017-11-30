@@ -1,10 +1,17 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  OnChanges
+} from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import Event from '../../../models/event.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Console } from '@angular/core/src/console';
 import { DialogEventComponent } from '../../dialog/dialog-event/dialog-event.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -12,6 +19,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   encapsulation: ViewEncapsulation.None
 })
 export class ListComponent implements OnInit {
+  text;
   constructor(
     private eventService: EventService,
     private modalService: NgbModal,
@@ -55,12 +63,13 @@ export class ListComponent implements OnInit {
 
   search(event) {
     if (event) {
-      this.eventService.getEvent(event).subscribe(products => {
-        this.eventList = event;
+      this.eventService.getEventsbyName(event).subscribe(events => {
+        console.log(this.text);
+        this.eventList = events;
       });
     } else {
-      this.eventService.getEvents().subscribe(products => {
-        this.eventList = event;
+      this.eventService.getEvents().subscribe(events => {
+        this.eventList = events;
       });
     }
   }

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { AddComponent } from './components/event/add/add.component';
-import { EditComponent } from './components/event/edit/edit.component';
 import { ListComponent } from './components/event/list/list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';

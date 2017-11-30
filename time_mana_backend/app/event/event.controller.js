@@ -6,10 +6,13 @@ const config = require('../../config/database');
 /* ==============
      Post event
   ============== */
-exports.postEvent = function(req, res) {
+exports.postEvent = function (req, res) {
   console.log(req.body);
   if (!req.body.title) {
-    res.json({ success: false, message: 'Event name is required.' });
+    res.json({
+      success: false,
+      message: 'Event name is required.'
+    });
   } else {
     if (!req.body.description) {
       res.json({
@@ -35,10 +38,15 @@ exports.postEvent = function(req, res) {
               message: 'Event color is required.'
             });
           } else {
-            User.findOne({ _id: req.decoded.userId }, (err, user) => {
+            User.findOne({
+              _id: req.decoded.userId
+            }, (err, user) => {
               // Check if error was found
               if (err) {
-                res.json({ success: false, message: err }); // Return error
+                res.json({
+                  success: false,
+                  message: err
+                }); // Return error
               } else {
                 // Check if username was found in database
                 if (!user) {
@@ -131,85 +139,92 @@ exports.postEvent = function(req, res) {
 /* ==============
      Get list event
   ============== */
-exports.getEvents = function(req, res) {
+exports.getEvents = function (req, res) {
+  console.log(req.query.name);
   var pageOptions = {
     page: Number(req.query.page) || 0,
     limit: Number(req.query.limit) || 10
   };
   if (req.query.name) {
     var name = req.query.name;
-    User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    User.findOne({
+      _id: req.decoded.userId
+    }, (err, user) => {
       // Check if error was found
       if (err) {
-        res.json({ success: false, message: err }); // Return error
+        res.json({
+          success: false,
+          message: err
+        }); // Return error
       } else {
-        Event.ensureIndexes({ name: 'text' });
-        Event.findOne({ createdBy: user.email, name: name }, function(
-          err,
-          event
-        ) {
-          // Check if error was found or not
-          if (err) {
-            res.json({
-              success: false,
-              message: err
-            }); // Return error message
-          } else {
-            if (!event) {
-              Event.find(
-                {
-                  createdBy: user.email,
-                  name: { $regex: name }
-                },
-                function(err, event2) {
-                  if (err) {
-                    res.json({
-                      success: false,
-                      message: 'No event found.'
-                    });
-                  } else {
-                    console.log(event2);
-                    res.json({
-                      success: true,
-                      events: event2
-                    });
-                  }
-                }
-              )
-                .skip(pageOptions.page * pageOptions.limit)
-                .limit(pageOptions.limit);
-            } else {
-              res.json({ success: true, events: event });
+        Event.ensureIndexes({
+          title: 'text'
+        });
+        Event.find({
+              createdBy: user.email,
+              title: {
+                $regex: name
+              }
+            },
+            function (err, event2) {
+              if (err) {
+                res.json({
+                  success: false,
+                  message: 'No event found.'
+                });
+              } else {
+                console.log(event2);
+                res.json({
+                  success: true,
+                  events: event2
+                });
+              }
             }
-          }
-        })
+          )
           .skip(pageOptions.page * pageOptions.limit)
-          .limit(pageOptions.limit)
-          .sort({ date: -1 });
+          .limit(pageOptions.limit);
       }
     });
   } else {
-    User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    User.findOne({
+      _id: req.decoded.userId
+    }, (err, user) => {
       // Check if error was found
       if (err) {
-        res.json({ success: false, message: err }); // Return error
+        res.json({
+          success: false,
+          message: err
+        }); // Return error
       } else {
-        Event.find({ createdBy: user.email }, (err, events) => {
-          // Check if error was found or not
-          if (err) {
-            res.json({ success: false, message: err }); // Return error message
-          } else {
-            // Check if blogs were found in database
-            if (!events) {
-              res.json({ success: false, message: 'No events found.' }); // Return error of no blogs found
+        Event.find({
+            createdBy: user.email
+          }, (err, events) => {
+            // Check if error was found or not
+            if (err) {
+              res.json({
+                success: false,
+                message: err
+              }); // Return error message
             } else {
-              res.json({ success: true, events: events }); // Return success and blogs array
+              // Check if blogs were found in database
+              if (!events) {
+                res.json({
+                  success: false,
+                  message: 'No events found.'
+                }); // Return error of no blogs found
+              } else {
+                res.json({
+                  success: true,
+                  events: events
+                }); // Return success and blogs array
+              }
             }
-          }
-        })
+          })
           .skip(pageOptions.page * pageOptions.limit)
           .limit(pageOptions.limit)
-          .sort({ date: -1 });
+          .sort({
+            date: -1
+          });
       }
     });
   }
@@ -217,14 +232,21 @@ exports.getEvents = function(req, res) {
 /* ==============
      Get an event by ID
   ============== */
-exports.getEventById = function(req, res) {
-  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+exports.getEventById = function (req, res) {
+  User.findOne({
+    _id: req.decoded.userId
+  }, (err, user) => {
     // Check if error was found
     if (err) {
-      res.json({ success: false, message: err }); // Return error
+      res.json({
+        success: false,
+        message: err
+      }); // Return error
     } else {
-      Event.findOne(
-        { createdBy: user.email, _id: req.params.id },
+      Event.findOne({
+          createdBy: user.email,
+          _id: req.params.id
+        },
         (err, event) => {
           // Check if error was found or not
           if (err) {
@@ -247,7 +269,9 @@ exports.getEventById = function(req, res) {
             }
           }
         }
-      ).sort({ date: -1 });
+      ).sort({
+        date: -1
+      });
     }
   });
 };
@@ -255,11 +279,16 @@ exports.getEventById = function(req, res) {
 /* ==============
      Edit event
   ============== */
-exports.editEvent = function(req, res) {
-  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+exports.editEvent = function (req, res) {
+  User.findOne({
+    _id: req.decoded.userId
+  }, (err, user) => {
     // Check if error was found
     if (err) {
-      res.json({ success: false, message: err }); // Return error
+      res.json({
+        success: false,
+        message: err
+      }); // Return error
     } else {
       var doc = {
         title: req.body.title,
@@ -270,8 +299,10 @@ exports.editEvent = function(req, res) {
         color: req.body.color,
         createdAt: new Date(Date.now()).toLocaleString()
       };
-      Event.update(
-        { createdBy: user.email, _id: req.params.id },
+      Event.update({
+          createdBy: user.email,
+          _id: req.params.id
+        },
         doc,
         (err, events) => {
           // Check if error was found or not
@@ -302,14 +333,21 @@ exports.editEvent = function(req, res) {
 /* ==============
      delete event
   ============== */
-exports.deleteEvent = function(req, res) {
-  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+exports.deleteEvent = function (req, res) {
+  User.findOne({
+    _id: req.decoded.userId
+  }, (err, user) => {
     // Check if error was found
     if (err) {
-      res.json({ success: false, message: err }); // Return error
+      res.json({
+        success: false,
+        message: err
+      }); // Return error
     } else {
-      Event.remove(
-        { createdBy: user.email, _id: req.params.id },
+      Event.remove({
+          createdBy: user.email,
+          _id: req.params.id
+        },
         (err, events) => {
           // Check if error was found or not
           if (err) {
