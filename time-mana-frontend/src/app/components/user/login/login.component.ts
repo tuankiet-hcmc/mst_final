@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
           this.boolsuc = true;
           this.boolerr = false;
           this.userService.storeUserData(res.token, res.user.email);
-          this.router.navigate(['/listevent']);
+          this.router.navigate(['/calendar']);
         }
       },
 

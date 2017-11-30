@@ -1,0 +1,17 @@
+.md-dialog-container {
+  position: absolute;
+
+}
+
+md-dialog {
+  max-width: 90%;
+  max-height: 90%;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container>* {
+  width: 100%;
+}
